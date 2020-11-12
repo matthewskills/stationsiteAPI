@@ -5,7 +5,7 @@ const db = new sqlite3.Database('./database.sqlite');
 
 
 musicRouter.get('/', (req,res,next) => {
-    db.all(`SELECT * from musiclogs WHERE station_id = ${req.params.stationId} ORDER BY timestamp DESC LIMIT 30 `, (err,rows) => {
+    db.all(`SELECT * from musiclogs WHERE station_id = ${req.params.stationId} ORDER BY id DESC LIMIT 30 `, (err,rows) => {
         if (err) { next(err); } else if (rows) { res.status(200).json( {tracks: rows} ) } else { res.sendStatus(404); }
     });
 })
