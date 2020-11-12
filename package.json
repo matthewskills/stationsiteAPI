@@ -1,0 +1,19 @@
+{
+  "name": "stationsite-api",
+  "version": "1.0.0",
+  "description": "stationsite radio manager api",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "mocha": "^8.2.1",
+    "sqlite3": "^5.0.0"
+  }
+}
