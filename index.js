@@ -22,6 +22,7 @@ app.listen(PORT, () => {
 
 // This function is imported from musiclogger.js and is used to pull now playing data from each station's shoutcast server
 // and inserts it into the musiclogs table.
+musicLogger();
 setInterval(musicLogger, 120000);
 
 module.exports = app;
