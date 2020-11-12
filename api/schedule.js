@@ -11,7 +11,7 @@ scheduleRouter.param('presenterId', (req,res,next, presenterId) => {
 
 scheduleRouter.get('/', (req,res,next) => {
         
-        db.all(`SELECT * FROM schedules WHERE station_id = ${req.params.stationId}  ORDER BY day ASC`, (err,rows) => {
+        db.all(`SELECT * FROM schedules WHERE station_id = ${req.params.stationId}  ORDER BY day ASC, start_time ASC`, (err,rows) => {
             if (err) { next(err); } else if (rows) { res.status(200).json({schedule: rows}) } else { res.sendStatus(404); }
         });
 });
