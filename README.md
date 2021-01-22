@@ -1,8 +1,9 @@
-# stationsiteAPI
-a RESTful API using express and sqlite3.
+# stationsiteAPI (WIP)
+a RESTful API using express and sqlite3. 
 
+The stationsite API stores a database of radio stations with attached radio schedules, presenters and music logs. 
 
-ISC License
+### ISC License
 
 Copyright (c) 2021, Matthew Troughear
 
