@@ -14,7 +14,8 @@ db.serialize(function () {
     '`tagline` TEXT,' +
     '`logo` TEXT,' +
     '`website_url` TEXT,' +
-    '`stream_url` TEXT) ');
+    '`stream_url` TEXT) ' +
+    '`api_key` TEXT);
 
     // drop the presenters table if it already exists
     db.run('DROP TABLE IF EXISTS `presenters`')
