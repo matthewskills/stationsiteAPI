@@ -12,9 +12,9 @@ const musicLogger = require('./musiclogger.js')
 const db = new sqlite3.Database('./database.sqlite');
 
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.stationsite.co.uk/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/api.stationsite.co.uk/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/api.stationsite.co.uk/chain.pem', 'utf8');
+const privateKey = fs.readFileSync('/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/cert.pem', 'utf8');
+const ca = fs.readFileSync('/chain.pem', 'utf8');
 
 const credentials = {
 	key: privateKey,
