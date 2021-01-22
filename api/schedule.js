@@ -27,4 +27,52 @@ scheduleRouter.get('/:presenterId', (req,res,next) => {
     res.status(200).json( { presenterSchedule: req.schedule });
 });
 
+scheduleRouter.post('/', (req,res,next) => {
+
+    const recData = req.body;
+    const apiKey = recData.apiKey;
+
+    db.get(`SELECT id,api_key FROM stations WHERE id = '${req.params.stationId}' AND  api_key='${apiKey}'`, (err,row) => {
+        if (err || !row) {  res.sendStatus(401); } else {
+
+            db.run(`INSERT INTO schedules (presenter_id,station_id,day,start_time,end_time,title,description,image) VALUES ($presenter,$station,$day,$start,$end,$title,$description,$image)`,
+            {
+            $presenter: recData.presenter_id,
+            $station: req.params.stationId,
+            $day: recData.day,
+            $start: recData.start_time,
+            $end: recData.end_time,
+            $title: recData.title,
+            $description: recData.description,
+            $image: recData.image
+            },
+            function(err){
+                if(err) { next(err); } else {res.sendStatus(201); }
+            })
+
+        }
+    })
+
+
+})
+
+scheduleRouter.delete('/', (req,res,next) => {
+
+    const recData = req.body;
+    const apiKey = recData.apiKey;
+
+    db.get(`SELECT id,api_key FROM stations WHERE id = '${req.params.stationId}' AND  api_key='${apiKey}'`, (err,row) => {
+        if (err || !row) {  res.sendStatus(401); } else {
+
+            db.run(`DELETE FROM schedules WHERE station_id = '${req.params.stationId}' AND id = '${recData.sid}'`,
+            function(err){
+                if(err) { next(err); } else {res.sendStatus(200); }
+            })
+
+        }
+    })
+
+
+})
+
 module.exports = scheduleRouter;
