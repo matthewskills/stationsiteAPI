@@ -9,7 +9,7 @@ messagingRouter.get('/', (req,res,next) => {
 
     // this will check that the provided api and station id are a match or returns a 401 errror
     db.get(`SELECT id,api_key FROM stations WHERE id = '${req.params.stationId}' AND  api_key='${apiKey}'`, (err,row) => {
-        if (err || !row) {  res.sendStatus(401); } else {
+        if (err || !row) {  res.sendStatus(401); } else { 
 
             // get the messaging data
             db.all(`SELECT * FROM messaging WHERE station_id = '${req.params.stationId}' ORDER BY timestamp DESC LIMIT 15`, (err,rows) => {
@@ -22,7 +22,20 @@ messagingRouter.get('/', (req,res,next) => {
 
 messagingRouter.post('/', (req,res,next) => {
     const recData = req.body;
-    const apiKey = recData.apiKey;
+
+                // post a new message
+                db.run(`INSERT INTO messaging (station_id,sender,subject,message,returnto,timestamp) VALUES ($stationId,$sender,$subject,$message,$returnto,$timestamp)`, 
+                {
+                    $stationId: req.params.stationId,
+                    $sender: recData.sender,
+                    $subject: recData.subject,
+                    $message: recData.message,
+                    $returnto: recData.returnto,
+                    $timestamp: recData.timestamp
+                },
+                function(err) {
+                    if(err) { next(err); } else {res.sendStatus(201); }
+                })
 
 });
 
@@ -33,8 +46,8 @@ messagingRouter.delete('/', (req,res,next) => {
         // this will check that the provided api and station id are a match or returns a 401 errror
         db.get(`SELECT id,api_key FROM stations WHERE id = '${req.params.stationId}' AND  api_key='${apiKey}'`, (err,row) => {
             if (err || !row) {  res.sendStatus(401); } else {
-    
-                // get the messaging data
+     
+                // delete the messaging data
                 db.run(`DELETE FROM messaging WHERE station_id = '${req.params.stationId}' AND id = '${recData.messageId}`, (err,rows) => {
                     if(err) { next(err) } else if (rows) { res.sendStatus(200); } else { res.sendStatus(404); }
                 });
