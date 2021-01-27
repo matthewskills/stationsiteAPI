@@ -32,7 +32,7 @@ messagingRouter.post('/', (req,res,next) => {
                     $subject: recData.subject,
                     $message: recData.message,
                     $returnto: recData.returnto,
-                    $timestamp: recData.timestamp
+                    $timestamp: Date.now()
                 },
                 function(err) {
                     if(err) { next(err); } else {res.sendStatus(201); }
