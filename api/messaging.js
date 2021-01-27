@@ -50,8 +50,8 @@ messagingRouter.delete('/', (req,res,next) => {
             if (err || !row) {  res.sendStatus(401); } else {
      
                 // delete the messaging data
-                db.run(`DELETE FROM messaging WHERE station_id = '${req.params.stationId}' AND id = '${recData.messageId}`, (err,rows) => {
-                    if(err) { next(err) } else if (rows) { res.sendStatus(200); } else { res.sendStatus(404); }
+                db.run(`DELETE FROM messaging WHERE station_id = '${req.params.stationId}' AND id = '${recData.messageId}'`, (err,rows) => {
+                    if(err) { next(err); } else {res.sendStatus(200); }
                 });
             }
         });  
