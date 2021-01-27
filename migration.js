@@ -74,7 +74,7 @@ db.serialize(function () {
     '`sender` TEXT NOT NULL,' +
     '`subject` TEXT NOT NULL,' +
     '`message` TEXT NOT NULL,' +
-    '`replyto` TEXT NOT NULL,' +
-    '`timestamp` TEXT NOT NULL )');
+    '`returnto` TEXT NOT NULL,' +
+    '`timestamp` NUMERIC NOT NULL )');
  
 });
