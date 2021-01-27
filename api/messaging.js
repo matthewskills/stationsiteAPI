@@ -16,7 +16,8 @@ messagingRouter.get('/', (req,res,next) => {
                 if(err) { next(err) } else if (rows) { res.status(200).json({messages: rows}) } else { res.sendStatus(404); }
             });
 
-    }
+        }
+    });
 
 });
 
@@ -45,13 +46,16 @@ messagingRouter.delete('/', (req,res,next) => {
 
         // this will check that the provided api and station id are a match or returns a 401 errror
         db.get(`SELECT id,api_key FROM stations WHERE id = '${req.params.stationId}' AND  api_key='${apiKey}'`, (err,row) => {
+
             if (err || !row) {  res.sendStatus(401); } else {
      
                 // delete the messaging data
                 db.run(`DELETE FROM messaging WHERE station_id = '${req.params.stationId}' AND id = '${recData.messageId}`, (err,rows) => {
                     if(err) { next(err) } else if (rows) { res.sendStatus(200); } else { res.sendStatus(404); }
                 });
-    
-        }
+            }
+        });  
+});
 
-})
+    
+module.exports = messagingRouter;
