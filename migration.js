@@ -15,7 +15,7 @@ db.serialize(function () {
     '`logo` TEXT,' +
     '`website_url` TEXT,' +
     '`stream_url` TEXT) ' +
-    '`api_key` TEXT);
+    '`api_key` TEXT)');
 
     // drop the presenters table if it already exists
     db.run('DROP TABLE IF EXISTS `presenters`')
@@ -48,9 +48,10 @@ db.serialize(function () {
      '`hide_until` INTEGER,' +
      '`active` INTEGER NOT NULL DEFAULT 1) ');
 
+    // drop the music logs tables if it already exists
+    db.run('DROP TABLE IF EXISTS `musiclogs`');
 
-     db.run('DROP TABLE IF EXISTS `musiclogs`');
-
+    // create the new music logs table
     db.run('CREATE TABLE `musiclogs` (' +
     '`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,' +
     '`presenter_id` INTEGER NOT NULL DEFAULT 0,' +
@@ -62,5 +63,18 @@ db.serialize(function () {
     '`timestamp` INTEGER NOT NULL,' + 
     '`as_album_art` TEXT,' + 
     '`as_uri` TEXT) ');
+
+    // drop the messaging table if it already exists
+    db.run('DROP TABLE IF EXISTS `messaging`');
+
+    // create the new messaging table
+    db.run('CREATE TABLE `messaging` (' +
+    '`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,' +
+    '`station_id` INTEGER NOT NULL DEFAULT 0,' +
+    '`sender` TEXT NOT NULL,' +
+    '`subject` TEXT NOT NULL,' +
+    '`message` TEXT NOT NULL,' +
+    '`replyto` TEXT NOT NULL,' +
+    '`timestamp` TEXT NOT NULL )');
  
 });
